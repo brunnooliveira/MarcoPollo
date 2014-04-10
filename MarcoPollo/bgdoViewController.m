@@ -7,8 +7,13 @@
 //
 
 #import "bgdoViewController.h"
+#import "Social/Social.h"
 
 @interface bgdoViewController ()
+
+@property (weak, nonatomic) IBOutlet UITextView *tweetTextView;
+
+- (IBAction)postitButtonPressed:(id)sender;
 
 @end
 
@@ -26,4 +31,16 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)postitButtonPressed:(id)sender {
+    
+    NSLog(@"Post It buttons was pressed: %@", self.tweetTextView.text);
+    
+    NSString *tweetText = [NSString stringWithFormat:@"%@ #MarcoPollo", self.tweetTextView.text];
+    
+    SLComposeViewController *composer = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+    
+    [composer setInitialText:tweetText];
+    
+    [self presentViewController:composer animated:YES completion:nil];
+}
 @end
